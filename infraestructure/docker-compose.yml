@@ -1,0 +1,33 @@
+services:
+  # Banco de Dados Relacional para o Microserviço .NET (Pedidos/Catálogo)
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: ecommerce-sqlserver
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=YourStrong@Password123
+    ports:
+      - "1433:1433"
+    
+  # Banco de Dados NoSQL para o Microserviço Node.js (Logs/Notificações)
+  mongodb:
+    image: mongo:latest
+    container_name: ecommerce-mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+  # Mensageria para integrar .NET e Node.js
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: ecommerce-rabbitmq
+    ports:
+      - "5672:5672"   # Porta de comunicação (AMQP)
+      - "15672:15672" # Painel de Controle (Interface Web)
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+
+volumes:
+  mongo-data:
