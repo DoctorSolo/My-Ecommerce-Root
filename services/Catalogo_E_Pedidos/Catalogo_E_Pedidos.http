@@ -1,6 +1,0 @@
-@Catalogo_E_Pedidos_HostAddress = http://localhost:5144
-
-GET {{Catalogo_E_Pedidos_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
